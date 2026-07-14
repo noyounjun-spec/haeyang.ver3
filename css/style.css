@@ -1,0 +1,286 @@
+/* =========================================================
+   SEA-cret Guard Archi — design tokens
+   Concept: a sunken naval records vault. You descend through
+   pressure layers (0m → 40m) to declassify a sealed document.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --navy-deep:   #0B1D26;   /* page background — the abyss */
+  --navy-panel:  #12313D;   /* card / panel surface */
+  --navy-line:   #1E4653;   /* hairlines, borders */
+  --brass:       #C9A24B;   /* signature accent — ship's brass */
+  --brass-dim:   #8A742F;
+  --parchment:   #EDE6D6;   /* primary text */
+  --parchment-muted: #8FA6AD;
+  --coral:       #E4572E;   /* wrong / alert */
+  --teal-ok:     #4FB3A9;   /* correct / success */
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --gauge-width: 64px;
+}
+
+*{ box-sizing: border-box; }
+
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  background: var(--navy-deep);
+  background-image:
+    radial-gradient(ellipse at top, rgba(30,70,83,0.35), transparent 60%);
+  color: var(--parchment);
+  font-family: var(--font-body);
+  line-height:1.6;
+  padding-left: var(--gauge-width);
+}
+
+@media (max-width: 640px){
+  body{ padding-left: 0; padding-bottom: 48px; }
+  .depth-gauge{ display:none; }
+}
+
+a{ color: var(--brass); }
+
+/* ---------- Depth gauge (signature element) ----------
+   A vertical pressure scale from surface (0m) to the vault
+   floor (40m). The marker position encodes real progress:
+   on the game page it tracks how many stages are solved;
+   elsewhere it simply rests at the surface. */
+.depth-gauge{
+  position: fixed;
+  top:0; left:0; bottom:0;
+  width: var(--gauge-width);
+  background: linear-gradient(180deg, #0d232d, #071219);
+  border-right: 1px solid var(--navy-line);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding: 24px 0;
+  z-index: 50;
+}
+.depth-gauge .unit{
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--parchment-muted);
+  letter-spacing: 0.1em;
+  writing-mode: vertical-rl;
+  margin-bottom: 12px;
+}
+.depth-gauge .track{
+  position:relative;
+  flex:1;
+  width: 2px;
+  background: var(--navy-line);
+}
+.depth-gauge .tick{
+  position:absolute;
+  left:-4px;
+  width:10px;
+  height:1px;
+  background: var(--navy-line);
+}
+.depth-gauge .tick span{
+  position:absolute;
+  left:14px;
+  top:-6px;
+  font-family: var(--font-mono);
+  font-size:9px;
+  color: var(--parchment-muted);
+}
+.depth-gauge .marker{
+  position:absolute;
+  left:-7px;
+  width:16px; height:16px;
+  border-radius:50%;
+  background: var(--brass);
+  box-shadow: 0 0 0 4px rgba(201,162,75,0.18);
+  transform: translateY(-50%);
+  transition: top 600ms cubic-bezier(.4,0,.2,1);
+}
+
+/* ---------- Layout shells ---------- */
+.wrap{
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 56px 28px 96px;
+}
+.stamp-header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom: 48px;
+}
+.stamp-header .seal{
+  width:40px; height:40px;
+  border:1.5px solid var(--brass);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family: var(--font-mono);
+  font-size:11px;
+  color: var(--brass);
+  flex-shrink:0;
+}
+.stamp-header .id{
+  font-family: var(--font-mono);
+  font-size:11px;
+  color: var(--parchment-muted);
+  letter-spacing: 0.08em;
+}
+.stamp-header nav{
+  margin-left:auto;
+  display:flex;
+  gap:20px;
+  font-family: var(--font-mono);
+  font-size:12px;
+}
+.stamp-header nav a{
+  color: var(--parchment-muted);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+}
+.stamp-header nav a:hover{ color: var(--brass); border-color: var(--brass); }
+
+h1{
+  font-family: var(--font-display);
+  font-weight:600;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height:1.08;
+  margin: 0 0 18px;
+  color: var(--parchment);
+}
+h1 em{ font-style: italic; color: var(--brass); }
+h2{
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight:600;
+  margin: 0 0 12px;
+}
+p.lede{
+  font-size:1.08rem;
+  color: var(--parchment-muted);
+  max-width: 52ch;
+}
+
+.panel{
+  background: var(--navy-panel);
+  border:1px solid var(--navy-line);
+  border-radius: 4px;
+  padding: 32px;
+}
+
+.field{
+  margin-bottom:18px;
+}
+.field label{
+  display:block;
+  font-family: var(--font-mono);
+  font-size:11px;
+  color: var(--parchment-muted);
+  letter-spacing:0.08em;
+  text-transform: uppercase;
+  margin-bottom:6px;
+}
+.field input, .field select{
+  width:100%;
+  background: var(--navy-deep);
+  border:1px solid var(--navy-line);
+  color: var(--parchment);
+  font-family: var(--font-body);
+  font-size:15px;
+  padding: 11px 12px;
+  border-radius:3px;
+}
+.field input:focus, .field select:focus, button:focus, a.btn:focus{
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+button, a.btn{
+  font-family: var(--font-mono);
+  font-size:13px;
+  letter-spacing:0.04em;
+  background: var(--brass);
+  color: var(--navy-deep);
+  border:none;
+  padding: 12px 22px;
+  border-radius:3px;
+  cursor:pointer;
+  display:inline-block;
+  text-decoration:none;
+  transition: transform 120ms ease, background 120ms ease;
+}
+button:hover, a.btn:hover{ background:#DBB669; }
+button:active, a.btn:active{ transform: translateY(1px); }
+button.ghost, a.btn.ghost{
+  background:transparent;
+  border:1px solid var(--brass-dim);
+  color: var(--brass);
+}
+
+.msg{
+  font-family: var(--font-mono);
+  font-size:13px;
+  padding:10px 14px;
+  border-radius:3px;
+  margin-bottom:16px;
+  display:none;
+}
+.msg.show{ display:block; }
+.msg.error{ background: rgba(228,87,46,0.12); color: var(--coral); border:1px solid rgba(228,87,46,0.4); }
+.msg.ok{ background: rgba(79,179,169,0.12); color: var(--teal-ok); border:1px solid rgba(79,179,169,0.4); }
+
+.foot-note{
+  margin-top: 28px;
+  font-size:12.5px;
+  color: var(--parchment-muted);
+}
+
+/* ---------- Game / stage cards ---------- */
+.stage{
+  border:1px solid var(--navy-line);
+  border-radius:4px;
+  padding:26px 28px;
+  margin-bottom: 20px;
+  background: var(--navy-panel);
+  opacity: 0.45;
+  pointer-events:none;
+}
+.stage.active{ opacity:1; pointer-events:auto; border-color: var(--brass-dim); }
+.stage.solved{ opacity:0.75; pointer-events:none; }
+.stage .stage-label{
+  font-family: var(--font-mono);
+  font-size:11px;
+  color: var(--brass);
+  letter-spacing:0.1em;
+  margin-bottom:8px;
+}
+.stage.solved .stage-label::after{ content:" — 해독 완료"; color: var(--teal-ok); }
+.stage .riddle{
+  font-family: var(--font-display);
+  font-size:1.25rem;
+  margin: 6px 0 18px;
+}
+.stage .answer-row{ display:flex; gap:10px; flex-wrap:wrap; }
+.stage .answer-row input{ flex:1; min-width:180px; }
+
+.final-doc{
+  border:1px solid var(--teal-ok);
+  border-radius:4px;
+  padding:28px;
+  background: rgba(79,179,169,0.06);
+  display:none;
+}
+.final-doc.show{ display:block; }
+.final-doc h2{ color: var(--teal-ok); }
+.final-doc pre{
+  font-family: var(--font-mono);
+  font-size:13px;
+  white-space: pre-wrap;
+  color: var(--parchment);
+}
