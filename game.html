@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>잠수 진행 — SEA-cret Guard Archi</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<aside class="depth-gauge" aria-hidden="true">
+  <div class="unit">DEPTH (M)</div>
+  <div class="track">
+    <div class="tick" style="top:0%"><span>0</span></div>
+    <div class="tick" style="top:25%"><span>10</span></div>
+    <div class="tick" style="top:50%"><span>20</span></div>
+    <div class="tick" style="top:75%"><span>30</span></div>
+    <div class="tick" style="top:100%"><span>40</span></div>
+    <div class="marker" style="top:0%"></div>
+  </div>
+</aside>
+
+<div class="wrap">
+  <header class="stamp-header">
+    <div class="seal">SGA</div>
+    <div class="id" id="agent-tag">FILE NO. 0119 · DIVE IN PROGRESS</div>
+    <nav>
+      <a href="index.html">홈</a>
+      <a href="#" id="logout-link">로그아웃</a>
+    </nav>
+  </header>
+
+  <h2 style="font-size:2rem;">압력층 해독</h2>
+  <p class="lede" style="margin-bottom:32px;">
+    각 층의 문제를 풀면 다음 층이 열립니다. 40m 지점까지 도달하면
+    기밀 문서가 해제됩니다.
+  </p>
+
+  <div id="stage-list"></div>
+
+  <div class="final-doc" id="final-doc">
+    <h2>DECLASSIFIED · 40M</h2>
+    <pre>기록번호 0119
+"바다는 아무것도 잊지 않는다.
+가장 깊은 곳에 가라앉은 것일수록,
+가장 오래 지켜진다."
+
+— SEA-cret Guard Archi, 최하층 기록실에서</pre>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+  agRequireLogin("login.html");
+  document.getElementById("agent-tag").textContent =
+    "FILE NO. 0119 · AGENT: " + agCurrentUser();
+  document.getElementById("logout-link").addEventListener("click", function (e) {
+    e.preventDefault();
+    agLogout();
+    window.location.href = "index.html";
+  });
+</script>
+<script src="js/quiz.js"></script>
+</body>
+</html>
