@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>서해 해양경찰청 — 소금빵 두더지 잡기</title>
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/game-common.css" />
+<link rel="stylesheet" href="css/seohae.css" />
+</head>
+<body>
+<div class="wrap">
+  <div class="game-header">
+    <a class="back" href="index.html">← 지도로</a>
+    <span class="log-chip" id="log-chip"></span>
+  </div>
+
+  <div class="mission-title">
+    <div class="region-tag">서해 해양경찰청</div>
+    <h1>소금빵 두더지 잡기</h1>
+    <p>구멍에서 올라오는 <strong>먹물 소금빵</strong>을 터치하면 +1점,
+      <strong>해양 쓰레기</strong>를 터치하면 -1점이에요. 30초 안에 {{PASS}}점을 넘겨보세요!</p>
+  </div>
+
+  <div class="hud">
+    <div class="stat"><div class="label">점수</div><div class="value" id="score-value">0</div></div>
+    <div class="stat warn"><div class="label">남은 시간</div><div class="value" id="time-value">30</div></div>
+  </div>
+
+  <div class="game-stage">
+    <div class="start-panel" id="start-panel">
+      <img src="assets/archi.png" alt="아치" style="width:90px;" />
+      <p>먹물 소금빵만 골라서 터치하세요. 쓰레기를 잘못 누르면 점수가 깎여요!</p>
+      <button class="btn" id="start-btn">잡으러 가기</button>
+    </div>
+    <div class="mole-grid" id="mole-grid" style="display:none;"></div>
+  </div>
+</div>
+
+<div class="result-overlay" id="result-overlay">
+  <div class="result-card">
+    <img src="assets/archi.png" alt="아치" />
+    <h2 id="result-title"></h2>
+    <p id="result-desc"></p>
+    <div class="btn-row">
+      <button class="btn" id="retry-btn">다시 도전</button>
+      <a class="btn ghost" href="index.html">지도로 돌아가기</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/progress.js"></script>
+<script>
+  document.getElementById("log-chip").textContent = amCompletedCount() + " / 5 완료";
+  document.querySelector(".mission-title p").innerHTML =
+    document.querySelector(".mission-title p").innerHTML.replace("{{PASS}}", "8");
+</script>
+<script src="js/seohae.js"></script>
+</body>
+</html>
