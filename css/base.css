@@ -1,0 +1,246 @@
+/* =========================================================
+   아치의 바다 지킴이 대작전 — base.css
+   Concept: Archi's ship sails along the Korean coastline,
+   visiting five Coast Guard regions. Each completed mission
+   extends the wake trail on the map.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Press+Start+2P&display=swap');
+
+:root{
+  --sea-deep:    #0B3D62;
+  --sea-mid:     #1C6FA0;
+  --sea-bright:  #4FB6E8;
+  --coast-orange:#FF6A39;
+  --coast-orange-dim: #C94F27;
+  --foam:        #F5FAFC;
+  --ink:         #08243B;
+  --sun-gold:    #FFC93C;
+
+  --font-display: 'Jua', sans-serif;
+  --font-body: 'Gowun Dodum', sans-serif;
+  --font-arcade: 'Press Start 2P', monospace;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family: var(--font-body);
+  color: var(--foam);
+  background: linear-gradient(180deg, var(--sea-deep) 0%, var(--sea-mid) 55%, var(--sea-bright) 100%);
+  background-attachment: fixed;
+}
+
+a{ color: inherit; }
+
+.wrap{
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 20px 80px;
+}
+
+/* ---------- Header ---------- */
+.site-header{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap:12px;
+  margin-bottom: 20px;
+}
+.site-header .brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  text-decoration:none;
+  color: var(--foam);
+}
+.site-header .brand img{
+  width:38px; height:38px;
+  object-fit:contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+}
+.log-chip{
+  font-family: var(--font-arcade);
+  font-size:10px;
+  background: rgba(8,36,59,0.55);
+  border:1px solid rgba(255,255,255,0.25);
+  color: var(--sun-gold);
+  padding:8px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  background: var(--coast-orange);
+  color: var(--foam);
+  border:none;
+  padding: 13px 26px;
+  border-radius: 999px;
+  cursor:pointer;
+  display:inline-block;
+  text-decoration:none;
+  box-shadow: 0 4px 0 var(--coast-orange-dim);
+  transition: transform 100ms ease, box-shadow 100ms ease;
+}
+.btn:hover{ filter: brightness(1.05); }
+.btn:active{ transform: translateY(3px); box-shadow: 0 1px 0 var(--coast-orange-dim); }
+.btn.ghost{
+  background: transparent;
+  border:2px solid rgba(255,255,255,0.55);
+  color: var(--foam);
+  box-shadow:none;
+}
+.btn.ghost:active{ transform: translateY(2px); }
+.btn:focus-visible{ outline: 3px solid var(--sun-gold); outline-offset:2px; }
+
+/* ---------- Hero ---------- */
+.hero{
+  text-align:center;
+  padding: 18px 0 8px;
+}
+.hero .archi-float{
+  width: 128px;
+  animation: bob 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 10px 14px rgba(0,0,0,0.3));
+}
+@keyframes bob{
+  0%,100%{ transform: translateY(0) rotate(-2deg); }
+  50%{ transform: translateY(-10px) rotate(2deg); }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero .archi-float{ animation: none; }
+}
+.hero h1{
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 5vw, 2.3rem);
+  margin: 10px 0 6px;
+  text-shadow: 0 2px 0 rgba(8,36,59,0.5);
+}
+.hero p{
+  color: rgba(245,250,252,0.85);
+  max-width: 46ch;
+  margin: 0 auto;
+}
+
+/* ---------- Signature: coastline map + wake trail ---------- */
+.map-frame{
+  position:relative;
+  margin: 28px auto 8px;
+  max-width: 420px;
+}
+.map-frame svg{ width:100%; height:auto; display:block; }
+.coastline{
+  fill: rgba(245,250,252,0.94);
+}
+.wake-path{
+  fill:none;
+  stroke: var(--sun-gold);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 6 8;
+  opacity: 0.95;
+  transition: stroke-dashoffset 800ms ease;
+}
+.pin{
+  cursor:pointer;
+}
+.pin circle.ring{
+  fill: none;
+  stroke: var(--coast-orange);
+  stroke-width: 2;
+  opacity:0;
+}
+.pin.done circle.ring{
+  opacity:1;
+  stroke: var(--sun-gold);
+}
+.pin circle.dot{
+  fill: var(--coast-orange);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  transition: fill 200ms ease, r 200ms ease;
+}
+.pin.done circle.dot{ fill: var(--sun-gold); }
+.pin:hover circle.dot{ r: 9; }
+.pin text{
+  font-family: var(--font-display);
+  font-size: 12px;
+  fill: var(--ink);
+}
+.pin .check{
+  font-family: var(--font-display);
+  font-size: 11px;
+  fill: var(--ink);
+  opacity:0;
+}
+.pin.done .check{ opacity:1; }
+
+.legend{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:6px;
+  font-size: 12.5px;
+  color: rgba(245,250,252,0.85);
+}
+.legend span{ display:inline-flex; align-items:center; gap:6px; }
+.legend i{
+  width:10px; height:10px;
+  border-radius:50%;
+  background: var(--coast-orange);
+  display:inline-block;
+}
+.legend i.done{ background: var(--sun-gold); }
+
+/* ---------- Mission cards (hub list, mobile fallback) ---------- */
+.mission-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+  gap:14px;
+  margin-top: 24px;
+}
+.mission-card{
+  background: rgba(8,36,59,0.55);
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:14px;
+  padding:16px;
+  text-decoration:none;
+  color: var(--foam);
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  transition: transform 120ms ease, border-color 120ms ease;
+}
+.mission-card:hover{ transform: translateY(-3px); border-color: var(--sun-gold); }
+.mission-card .region{
+  font-family: var(--font-display);
+  font-size:1.05rem;
+}
+.mission-card .mission{
+  font-size: 13px;
+  color: rgba(245,250,252,0.78);
+}
+.mission-card .status{
+  margin-top:6px;
+  font-family: var(--font-arcade);
+  font-size: 9px;
+  color: var(--sun-gold);
+}
+.mission-card.locked{ opacity:0.55; }
+
+.foot-note{
+  text-align:center;
+  margin-top: 40px;
+  font-size:12px;
+  color: rgba(245,250,252,0.6);
+}
