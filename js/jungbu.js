@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const gameBoard = document.getElementById('game-board'); // 게임 보드 요소
-    const scoreDisplay = document.getElementById('score'); // 찾은 쌍을 표시할 요소
+    const gameBoard = document.getElementById('game-board');
+    const scoreDisplay = document.getElementById('score');
     
-    // 6쌍의 카드를 만들기 위한 CSS 필터 값 (클로드 설명 참고)
     const CARD_FILTERS = [
         'hue-rotate(80deg)', 
         'hue-rotate(160deg)', 
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'invert(80%)'
     ];
 
-    // 카드 쌍 만들기 및 섞기
     let cards = [...CARD_FILTERS, ...CARD_FILTERS];
     cards.sort(() => Math.random() - 0.5);
 
@@ -21,22 +19,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let lockBoard = false;
     let matchedCount = 0;
 
-    // 보드에 카드 렌더링
     cards.forEach(filter => {
         const cardElement = document.createElement('div');
         cardElement.classList.add('card');
         cardElement.dataset.filter = filter;
 
-        const frontFace = document.createElement('img');
-        frontFace.src = 'assets/archi.png';
-        frontFace.classList.add('card-front');
-        frontFace.style.filter = filter;
+        // 카드 앞면/뒷면을 감싸는 내부 컨테이너 (CSS 3D 효과용)
+        const cardInner = document.createElement('div');
+        cardInner.classList.add('card-inner');
 
-        const backFace = document.createElement('div');
-        backFace.classList.add('card-back');
+        const cardFront = document.createElement('div');
+        cardFront.classList.add('card-front');
+        const img = document.createElement('img');
+        img.src = 'assets/archi.png';
+        img.style.filter = filter;
+        cardFront.appendChild(img);
 
-        cardElement.appendChild(frontFace);
-        cardElement.appendChild(backFace);
+        const cardBack = document.createElement('div');
+        cardBack.classList.add('card-back');
+
+        cardInner.appendChild(cardFront);
+        cardInner.appendChild(cardBack);
+        cardElement.appendChild(cardInner);
         gameBoard.appendChild(cardElement);
 
         cardElement.addEventListener('click', () => flipCard(cardElement));
@@ -44,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function flipCard(card) {
         if (lockBoard) return;
-        if (card === firstCard) return; // 같은 카드 두 번 클릭 방지
+        if (card === firstCard) return;
         if (card.classList.contains('matched')) return;
 
         card.classList.add('flipped');
@@ -59,9 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkForMatch() {
-        const isMatch = firstCard.dataset.filter === secondCard.dataset.filter;
-
-        if (isMatch) {
+        if (firstCard.dataset.filter === secondCard.dataset.filter) {
             disableCards();
         } else {
             unflipCards();
@@ -73,13 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
         secondCard.classList.add('matched');
         
         matchedCount++;
-        if (scoreDisplay) scoreDisplay.textContent = `${matchedCount} / 6`;
-
+        scoreDisplay.textContent = `${matchedCount} / 6`;
         resetBoard();
 
-        // 6쌍 모두 찾았을 때 게임 클리어
         if (matchedCount === 6) {
-            setTimeout(gameClear, 500);
+            setTimeout(() => {
+                localStorage.setItem('mission_jungbu', 'true');
+                alert('중부 해양경찰청 미션 완료!');
+                window.location.href = 'index.html';
+            }, 500);
         }
     }
 
@@ -95,17 +99,5 @@ document.addEventListener('DOMContentLoaded', () => {
     function resetBoard() {
         [firstCard, secondCard] = [null, null];
         lockBoard = false;
-    }
-
-    function gameClear() {
-        // progress.js에 있는 완료 처리 로직 호출
-        if (window.completeMission) {
-            window.completeMission('jungbu');
-        } else {
-            // 로컬 스토리지에 직접 저장하는 fallback
-            localStorage.setItem('mission_jungbu', 'true');
-        }
-        alert('중부 해양경찰청 미션 완료!');
-        window.location.href = 'index.html'; // 허브로 복귀
     }
 });
