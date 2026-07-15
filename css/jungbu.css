@@ -1,54 +1,78 @@
-/* jungbu.css — 아치 카드 짝맞추기 */
+body {
+    font-family: sans-serif;
+    background-color: #f0f8ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+}
 
-.card-grid{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  max-width: 360px;
-  margin: 0 auto;
+.mission-header {
+    text-align: center;
+    margin-bottom: 20px;
 }
-.card{
-  aspect-ratio: 3/4;
-  perspective: 600px;
-  cursor:pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-.card-inner{
-  position:relative;
-  width:100%; height:100%;
-  transform-style: preserve-3d;
-  transition: transform 350ms cubic-bezier(.4,.2,.2,1);
-  border-radius: 10px;
-}
-.card.flipped .card-inner{ transform: rotateY(180deg); }
 
-.card-face{
-  position:absolute;
-  inset:0;
-  backface-visibility: hidden;
-  border-radius: 10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
 }
-.card-back{
-  background: linear-gradient(160deg, var(--coast-orange), var(--coast-orange-dim));
-  font-size: 1.6rem;
-  color: rgba(255,255,255,0.9);
-  border: 2px solid rgba(255,255,255,0.3);
+
+.card {
+    width: 80px;
+    height: 120px;
+    perspective: 1000px; /* 3D 효과를 위한 원근감 */
+    cursor: pointer;
 }
-.card-front{
-  background: var(--foam);
-  transform: rotateY(180deg);
-  border: 2px solid var(--sun-gold);
-  padding: 8px;
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d; /* 앞뒷면 3D 유지 */
 }
-.card-front img{
-  width:100%; height:100%;
-  object-fit: contain;
+
+/* 카드가 뒤집혔을 때 */
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
 }
-.card.matched .card-face{
-  opacity: 0.55;
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden; /* 뒷면 숨김 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.card.matched{ cursor: default; }
+
+/* 카드 뒷면 (처음에 보이는 파란 면) */
+.card-back {
+    background-color: #004b87; /* 해양경찰청 블루 */
+    background-image: url('../assets/archi.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+
+/* 카드 앞면 (클릭 시 보이는 색칠된 면) */
+.card-front {
+    background-color: white;
+    transform: rotateY(180deg);
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
