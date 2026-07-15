@@ -1,0 +1,43 @@
+/* donghae.css — 아치 틀린그림찾기 */
+
+.diff-row{
+  display:flex;
+  gap: 10px;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+.diff-col{
+  text-align:center;
+}
+.diff-col .cap{
+  font-size: 12px;
+  color: rgba(245,250,252,0.75);
+  margin-bottom: 6px;
+}
+.diff-col canvas{
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: #fff;
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+.diff-col.target canvas{ border-color: var(--sun-gold); }
+
+.diff-dots{
+  display:flex;
+  justify-content:center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.diff-dots span{
+  width: 16px; height:16px;
+  border-radius:50%;
+  background: rgba(245,250,252,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+.diff-dots span.found{
+  background: var(--sun-gold);
+  border-color: var(--sun-gold);
+}
