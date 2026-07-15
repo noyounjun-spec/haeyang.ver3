@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>남해 해양경찰청 — 아치 퍼즐 맞추기</title>
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/game-common.css" />
+<link rel="stylesheet" href="css/namhae.css" />
+</head>
+<body>
+<div class="wrap">
+  <div class="game-header">
+    <a class="back" href="index.html">← 지도로</a>
+    <span class="log-chip" id="log-chip"></span>
+  </div>
+
+  <div class="mission-title">
+    <div class="region-tag">남해 해양경찰청</div>
+    <h1>아치 퍼즐 맞추기</h1>
+    <p>조각난 아치 사진이 뒤섞여 있어요. 조각 두 개를 순서대로 탭하면 자리가 바뀝니다.
+      원래 사진대로 완성해보세요!</p>
+  </div>
+
+  <div class="hud">
+    <div class="stat"><div class="label">이동 횟수</div><div class="value" id="move-value">0</div></div>
+  </div>
+
+  <div class="game-stage">
+    <div class="start-panel" id="start-panel">
+      <img src="assets/archi.png" alt="아치" style="width:90px;" />
+      <p>퍼즐을 시작하면 사진이 9조각으로 섞여요. 두 조각을 차례로 탭해서 바꿔보세요.</p>
+      <button class="btn" id="start-btn">퍼즐 시작</button>
+    </div>
+
+    <div class="puzzle-wrap" id="puzzle-wrap" style="display:none;">
+      <div class="puzzle-grid" id="puzzle-grid"></div>
+      <img class="puzzle-hint" src="assets/archi.png" alt="완성 모습 미리보기" />
+      <p class="puzzle-meta">
+        <span>👆 완성 모습 미리보기</span>
+      </p>
+      <div style="text-align:center; margin-top:14px;">
+        <button class="btn ghost" id="shuffle-btn">다시 섞기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="result-overlay" id="result-overlay">
+  <div class="result-card">
+    <img src="assets/archi.png" alt="아치" />
+    <h2 id="result-title"></h2>
+    <p id="result-desc"></p>
+    <div class="btn-row">
+      <button class="btn" id="retry-btn">다시 섞기</button>
+      <a class="btn ghost" href="index.html">지도로 돌아가기</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/progress.js"></script>
+<script>
+  document.getElementById("log-chip").textContent = amCompletedCount() + " / 5 완료";
+</script>
+<script src="js/namhae.js"></script>
+</body>
+</html>
