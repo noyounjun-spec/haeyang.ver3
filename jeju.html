@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>제주 해양경찰청 — 낙하물 받기</title>
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/game-common.css" />
+<link rel="stylesheet" href="css/jeju.css" />
+</head>
+<body>
+<div class="wrap">
+  <div class="game-header">
+    <a class="back" href="index.html">← 지도로</a>
+    <span class="log-chip" id="log-chip"></span>
+  </div>
+
+  <div class="mission-title">
+    <div class="region-tag">제주 해양경찰청</div>
+    <h1>낙하물 받기</h1>
+    <p><strong>♻️ 정화된 쓰레기</strong>는 +1점, <strong>오염 쓰레기</strong>는 -1점이에요.
+      30초 안에 15점을 넘겨보세요!</p>
+  </div>
+
+  <div class="hud">
+    <div class="stat"><div class="label">점수</div><div class="value" id="score-value">0</div></div>
+    <div class="stat warn"><div class="label">남은 시간</div><div class="value" id="time-value">30</div></div>
+  </div>
+
+  <div class="game-stage" style="padding:10px;">
+    <div class="start-panel" id="start-panel">
+      <img src="assets/archi.png" alt="아치" style="width:90px;" />
+      <p>아치를 좌우로 움직여서 정화된 쓰레기(♻️)만 받아내세요. 화면을 드래그하거나 아래 버튼, 키보드 방향키로 움직일 수 있어요.</p>
+      <button class="btn" id="start-btn">받으러 가기</button>
+    </div>
+    <div class="catch-stage" id="catch-stage" style="display:none;">
+      <div class="catcher" id="catcher" style="left:50%;">
+        <img src="assets/archi.png" alt="아치" />
+      </div>
+    </div>
+  </div>
+
+  <div class="catch-controls" style="display:none;">
+    <button id="left-btn" aria-label="왼쪽으로 이동">◀</button>
+    <button id="right-btn" aria-label="오른쪽으로 이동">▶</button>
+  </div>
+  <p class="catch-legend">
+    <span>♻️ 정화된 쓰레기 (+1)</span>
+    <span>🧴🥤🛍️🥫 오염 쓰레기 (-1)</span>
+  </p>
+</div>
+
+<div class="result-overlay" id="result-overlay">
+  <div class="result-card">
+    <img src="assets/archi.png" alt="아치" />
+    <h2 id="result-title"></h2>
+    <p id="result-desc"></p>
+    <div class="btn-row">
+      <button class="btn" id="retry-btn">다시 도전</button>
+      <a class="btn ghost" href="index.html">지도로 돌아가기</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/progress.js"></script>
+<script>
+  document.getElementById("log-chip").textContent = amCompletedCount() + " / 5 완료";
+</script>
+<script src="js/jeju.js"></script>
+</body>
+</html>
