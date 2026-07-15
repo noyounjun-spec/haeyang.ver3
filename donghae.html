@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>동해 해양경찰청 — 아치 틀린그림찾기</title>
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/game-common.css" />
+<link rel="stylesheet" href="css/donghae.css" />
+</head>
+<body>
+<div class="wrap">
+  <div class="game-header">
+    <a class="back" href="index.html">← 지도로</a>
+    <span class="log-chip" id="log-chip"></span>
+  </div>
+
+  <div class="mission-title">
+    <div class="region-tag">동해 해양경찰청</div>
+    <h1>아치 틀린그림찾기</h1>
+    <p>오른쪽 사진에 원본과 다른 부분이 5곳 숨어 있어요. 찾아서 탭해보세요!</p>
+  </div>
+
+  <div class="hud">
+    <div class="stat"><div class="label">찾은 개수</div><div class="value" id="found-value">0</div></div>
+  </div>
+
+  <div class="game-stage">
+    <div class="start-panel" id="start-panel">
+      <img src="assets/archi.png" alt="아치" style="width:90px;" />
+      <p>왼쪽은 원본, 오른쪽은 살짝 달라진 사진이에요. 다른 부분 5곳을 오른쪽 사진에서 탭하세요.</p>
+      <button class="btn" id="start-btn" disabled>틀린그림찾기 시작</button>
+    </div>
+
+    <div id="diff-area" style="display:none;">
+      <div class="diff-row">
+        <div class="diff-col">
+          <div class="cap">원본</div>
+          <canvas id="canvas-a"></canvas>
+        </div>
+        <div class="diff-col target">
+          <div class="cap">여기서 찾기 👆</div>
+          <canvas id="canvas-b"></canvas>
+        </div>
+      </div>
+      <div class="diff-dots" id="diff-dots"></div>
+    </div>
+  </div>
+</div>
+
+<div class="result-overlay" id="result-overlay">
+  <div class="result-card">
+    <img src="assets/archi.png" alt="아치" />
+    <h2 id="result-title"></h2>
+    <p id="result-desc"></p>
+    <div class="btn-row">
+      <button class="btn" id="retry-btn">다시 하기</button>
+      <a class="btn ghost" href="index.html">지도로 돌아가기</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/progress.js"></script>
+<script>
+  document.getElementById("log-chip").textContent = amCompletedCount() + " / 5 완료";
+</script>
+<script src="js/donghae.js"></script>
+</body>
+</html>
