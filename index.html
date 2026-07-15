@@ -3,60 +3,113 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SEA-cret Guard Archi</title>
-<link rel="stylesheet" href="css/style.css" />
+<title>아치의 바다 지킴이 대작전</title>
+<link rel="stylesheet" href="css/base.css" />
 </head>
 <body>
 
-<aside class="depth-gauge" aria-hidden="true">
-  <div class="unit">DEPTH (M)</div>
-  <div class="track">
-    <div class="tick" style="top:0%"><span>0</span></div>
-    <div class="tick" style="top:25%"><span>10</span></div>
-    <div class="tick" style="top:50%"><span>20</span></div>
-    <div class="tick" style="top:75%"><span>30</span></div>
-    <div class="tick" style="top:100%"><span>40</span></div>
-    <div class="marker" style="top:0%"></div>
-  </div>
-</aside>
-
 <div class="wrap">
-  <header class="stamp-header">
-    <div class="seal">SGA</div>
-    <div class="id">FILE NO. 0119 · CLASSIFIED — SEA-cret GUARD ARCHIVE</div>
-    <nav>
-      <a href="login.html">로그인</a>
-      <a href="signup.html">등록</a>
-    </nav>
+  <header class="site-header">
+    <span class="brand"><img src="assets/archi.png" alt="아치" />바다 지킴이 대작전</span>
+    <span class="log-chip" id="log-chip">0 / 5 완료</span>
   </header>
 
-  <h1>수심 40미터 아래,<br /><em>봉인된 기록보관소</em>가 있다.</h1>
-  <p class="lede">
-    SEA-cret Guard Archi는 해저에 가라앉은 해군 기록보관소를 배경으로 한
-    퍼즐 탐사 사이트입니다. 요원으로 등록하고, 네 개의 압력층을 하나씩
-    해독하며 가장 깊은 곳에 잠긴 기밀 문서를 열람하세요.
-  </p>
-
-  <section class="panel" style="margin-top:40px;">
-    <h2>임무 개요</h2>
-    <p style="color:var(--parchment-muted); max-width:60ch;">
-      1. 요원 코드(아이디)와 암호를 등록합니다.<br />
-      2. 로그인 후 잠수를 시작합니다.<br />
-      3. 각 층의 암호·수수께끼를 풀어 10m씩 하강합니다.<br />
-      4. 40m 지점에서 기밀 문서가 해제됩니다.
-    </p>
-    <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
-      <a class="btn" href="signup.html">요원 등록하기</a>
-      <a class="btn ghost" href="login.html">이미 등록했다면 로그인</a>
-    </div>
+  <section class="hero">
+    <img class="archi-float" src="assets/archi.png" alt="아치가 인사하고 있어요" />
+    <h1>다섯 바다를 지켜라!</h1>
+    <p>중부·서해·남해·제주·동해 해양경찰청을 차례로 방문해서<br />
+      각 지역의 미션을 완료하고 아치의 항해 일지를 채워보세요.</p>
   </section>
 
+  <div class="map-frame">
+    <svg viewBox="0 0 300 400" role="img" aria-label="대한민국 해안선 지도와 5개 미션 지점">
+      <path class="coastline"
+        d="M150,15 C170,15 185,40 190,70 C205,110 210,160 205,210
+           C200,260 190,300 165,330 C150,350 130,355 115,335
+           C95,310 85,270 80,225 C75,180 78,130 90,90
+           C98,60 115,25 150,15 Z" />
+      <ellipse class="coastline" cx="112" cy="365" rx="24" ry="14" />
+
+      <path id="wake-path" class="wake-path"
+        d="M100,110 L90,190 L140,320 L112,365 L185,180" />
+
+      <g class="pin" id="pin-jungbu" data-region="jungbu">
+        <circle class="ring" cx="100" cy="110" r="13" />
+        <circle class="dot" cx="100" cy="110" r="7" />
+        <text x="112" y="107">중부</text>
+        <text class="check" x="112" y="120">✓ 완료</text>
+      </g>
+      <g class="pin" id="pin-seohae" data-region="seohae">
+        <circle class="ring" cx="90" cy="190" r="13" />
+        <circle class="dot" cx="90" cy="190" r="7" />
+        <text x="60" y="187">서해</text>
+        <text class="check" x="55" y="200">✓ 완료</text>
+      </g>
+      <g class="pin" id="pin-namhae" data-region="namhae">
+        <circle class="ring" cx="140" cy="320" r="13" />
+        <circle class="dot" cx="140" cy="320" r="7" />
+        <text x="120" y="342">남해</text>
+        <text class="check" x="113" y="355">✓ 완료</text>
+      </g>
+      <g class="pin" id="pin-jeju" data-region="jeju">
+        <circle class="ring" cx="112" cy="365" r="10" />
+        <circle class="dot" cx="112" cy="365" r="6" />
+        <text x="122" y="383">제주</text>
+        <text class="check" x="122" y="393">✓ 완료</text>
+      </g>
+      <g class="pin" id="pin-donghae" data-region="donghae">
+        <circle class="ring" cx="185" cy="180" r="13" />
+        <circle class="dot" cx="185" cy="180" r="7" />
+        <text x="197" y="177">동해</text>
+        <text class="check" x="197" y="190">✓ 완료</text>
+      </g>
+    </svg>
+  </div>
+  <p class="legend">
+    <span><i></i>미완료 지점</span>
+    <span><i class="done"></i>완료 지점 (탭하면 다시 도전 가능)</span>
+  </p>
+
+  <div class="mission-grid" id="mission-grid"></div>
+
   <p class="foot-note">
-    ※ 이 사이트는 정적 페이지(HTML/CSS/JS)로만 동작하며 별도 서버가 없습니다.
-    계정 정보는 이 브라우저의 로컬 저장소에만 남으므로, 실제 개인정보나
-    중요한 비밀번호는 사용하지 마세요.
+    ※ 진행 상황은 이 브라우저에만 저장돼요. 기기를 바꾸면 처음부터 시작합니다.
   </p>
 </div>
 
+<script src="js/progress.js"></script>
+<script>
+  function renderHub() {
+    document.getElementById("log-chip").textContent = amCompletedCount() + " / 5 완료";
+
+    REGIONS.forEach((r) => {
+      const pinEl = document.getElementById("pin-" + r.id);
+      pinEl.classList.toggle("done", amIsComplete(r.id));
+      pinEl.addEventListener("click", () => (window.location.href = r.page));
+    });
+
+    const path = document.getElementById("wake-path");
+    const total = path.getTotalLength();
+    const ratio = amCompletedCount() / REGIONS.length;
+    path.style.strokeDasharray = total;
+    path.style.strokeDashoffset = total * (1 - ratio);
+
+    const grid = document.getElementById("mission-grid");
+    grid.innerHTML = "";
+    REGIONS.forEach((r) => {
+      const done = amIsComplete(r.id);
+      const a = document.createElement("a");
+      a.href = r.page;
+      a.className = "mission-card";
+      a.innerHTML = `
+        <span class="region">${r.name} 해양경찰청</span>
+        <span class="mission">${r.mission}</span>
+        <span class="status">${done ? "★ 미션 완료" : "미도전"}</span>
+      `;
+      grid.appendChild(a);
+    });
+  }
+  renderHub();
+</script>
 </body>
 </html>
